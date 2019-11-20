@@ -3,17 +3,18 @@
     <swiper indicator-dots autoplay circular indicator-color="green" indicator-active-color="pink">
         <block v-for="(book, index) in newArr" :key="index">
             <swiper-item>
-                <img :src="book.image"></img>
+                <img :src="book.image" alt="image"></img>
+                <!-- <img src="https://img3.doubanio.com/view/subject/l/public/s27264181.jpg"></img> -->
             </swiper-item>
         </block>
     </swiper>
     <div id="booksList">
       <div class="nav">
         <span> 全部商品</span>
-        <span @click="toBookList(booksArr)">></span>
+        <span @click="toBooksList(booksArr)">></span>
       </div>
       <ul class="list">
-        <li v-for="(book, index) in booksArr" :key="index">
+        <li @click="toDetail(book)" v-for="(book, index) in booksArr" :key="index">
           <img :src="book.image" alt="">
           <p>《{{book.title}}》</p>
           <p>{{book.author}}</p>
@@ -23,16 +24,18 @@
   </div>
 </template>
   
-<script type="text/ecmascript-6">
+<script>
   import datas from './datas/data.json'
   export default {
     data() {
       return {
-        booksArr:[]
+        booksArr: []
       }
     },
     mounted() {
+      // console.log(this)
       this.booksArr = datas
+      // this.detailList
     },
     computed: {
       newArr(){
@@ -40,13 +43,18 @@
       }
     },
     methods: {
-      toBookList(booksArr){
+      toBooksList(booksArr){
         wx.navigateTo({
-          url: '/pages/booksList/main'
-          // url: '/pages/bookList/main?booksArr=' + booksArr
+          // url: '/pages/booksList/main'
+          url: '/pages/booksList/main?booksArr=' + JSON.stringify(booksArr)
         })
-      }
-    },
+      },
+      toDetail(detailList){
+        wx.navigateTo({
+          url: '/pages/detail/main?detailList=' + JSON.stringify(detailList)
+        })
+    }
+    }
   }
 </script>
   

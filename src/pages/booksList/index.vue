@@ -1,22 +1,30 @@
 <template>
   <div id="booksListCotainer">
-    <div class="bookItem">
-      <img src="https://img3.doubanio.com/view/subject/l/public/s1727290.jpg" alt="">
+    <div class="bookItem" v-for="(book, index) in booksArr" :key="index">
+      <img :src="book.image" alt="image">
+      <!-- <img mode="aspectFill" src="https://img3.doubanio.com/view/subject/l/public/s27264181.jpg"></img> -->
       <div class="bookInfo">
-        <p class="bookName">书名:k</p>
-        <p class="bookAuthor">作者:</p>
-        <p class="bookPublisher">出版社:</p>
+        <p class="bookName">书名:{{book.title}}</p>
+        <p class="bookAuthor">作者:{{book.author}}</p>
+        <p class="bookPublisher">出版社:{{book.publisher}}</p>
       </div>
-      <p class="bookPrice">￥58.9</p>
+      <p class="bookPrice">{{book.price}}</p>
     </div>
   </div>
 </template>
   
 <script type="text/ecmascript-6">
   export default {
-    mounted() {
-      console.log(this)
+    data() {
+      return {
+        booksArr:[]
+      }
     },
+    mounted() {
+      console.log('mounted')
+      console.log(this)
+        this.booksArr = JSON.parse(this.$mp.query.booksArr)
+    }
   }
 </script>
   
